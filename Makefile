@@ -37,7 +37,7 @@ ESLINT_FILES	= $(JS_FILES)
 
 # The next line breaks the build due to a variable that eng.git sed expander
 # doesn't know about (@@ENABLED@@)
-# SMF_MANIFESTS_IN = smf/manifests/metric-agent.xml.in
+# SMF_MANIFESTS_IN = smf/manifests/cmon-agent.xml.in
 
 # Should be the same version as the platform's /usr/node/bin/node.
 NODE_PREBUILT_VERSION =	v0.10.26
@@ -52,7 +52,7 @@ include ./tools/mk/Makefile.node_prebuilt.defs
 include ./tools/mk/Makefile.node_deps.defs
 include ./tools/mk/Makefile.smf.defs
 
-NAME :=	metric-agent
+NAME :=	cmon-agent
 RELEASE_TARBALL :=	$(NAME)-$(STAMP).tgz
 RELEASE_MANIFEST :=	$(NAME)-$(STAMP).manifest
 RELSTAGEDIR :=		/tmp/$(STAMP)
@@ -86,9 +86,9 @@ test:
 COAL=root@10.99.99.7
 test-coal:
 	./tools/rsync-to coal
-	ssh $(COAL) 'cd /opt/triton/agents/lib/node_modules/metric-agent \
+	ssh $(COAL) 'cd /opt/triton/agents/lib/node_modules/cmon-agent \
 	    && /usr/node/bin/node \
-	    /opt/triton/agents/lib/node_modules/metric-agent/node_modules/tape/bin/tape \
+	    /opt/triton/agents/lib/node_modules/cmon-agent/node_modules/tape/bin/tape \
 	    --reporter default'
 
 .PHONY: release
@@ -118,10 +118,10 @@ release: all deps $(SMF_MANIFESTS)
 	    $(RELSTAGEDIR)/$(NAME)/node/lib/node_modules \
 	    $(RELSTAGEDIR)/$(NAME)/node/include \
 	    $(RELSTAGEDIR)/$(NAME)/node/share
-	uuid -v4 >$(RELSTAGEDIR)/metric-agent/image_uuid
+	uuid -v4 >$(RELSTAGEDIR)/cmon-agent/image_uuid
 	cd $(RELSTAGEDIR) && $(TAR) -zcf $(TOP)/$(RELEASE_TARBALL) *
 	cat $(TOP)/manifest.tmpl | sed \
-	    -e "s/UUID/$$(cat $(RELSTAGEDIR)/metric-agent/image_uuid)/" \
+	    -e "s/UUID/$$(cat $(RELSTAGEDIR)/cmon-agent/image_uuid)/" \
 	    -e "s/NAME/$$(json name < $(TOP)/package.json)/" \
 	    -e "s/VERSION/$$(json version < $(TOP)/package.json)/" \
 	    -e "s/DESCRIPTION/$$(json description < $(TOP)/package.json)/" \
