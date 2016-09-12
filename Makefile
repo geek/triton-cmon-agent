@@ -85,11 +85,7 @@ test:
 .PHONY: test-coal
 COAL=root@10.99.99.7
 test-coal:
-	./tools/rsync-to coal
-	ssh $(COAL) 'cd /opt/triton/agents/lib/node_modules/cmon-agent \
-	    && /usr/node/bin/node \
-	    /opt/triton/agents/lib/node_modules/cmon-agent/node_modules/tape/bin/tape \
-	    --reporter default'
+	ssh $(COAL) /opt/smartdc/agents/lib/node_modules/cmon-agent/test/runtests
 
 .PHONY: release
 release: all deps $(SMF_MANIFESTS)

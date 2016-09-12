@@ -21,7 +21,7 @@ set -o xtrace
 
 function setup_logadm {
     mkdir -p -m 0755 /var/log/cmon-agent
-    logadm -w metric_agent_logs -C 168 -S 1g -c -p 1h \
+    logadm -w cmon_agent_logs -C 168 -S 1g -c -p 1h \
         -t '/var/log/cmon-agent/cmon-agent_$nodename_%FT%H:%M:%S.log' \
         /var/svc/log/*cmon-agent*.log
 

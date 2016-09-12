@@ -14,7 +14,7 @@ var mod_fs = require('fs');
 
 var Server = require('../lib/server');
 
-var configFilename = '/opt/smartdc/agents/etc/metric-agent.config.json';
+var configFilename = '/opt/smartdc/agents/etc/cmon-agent.config.json';
 
 function loadConfig(filename, callback) {
     mod_fs.readFile(filename, function (error, data) {

@@ -6,18 +6,18 @@
 #
 
 #
-# Copyright (c) 2016, Joyent, Inc.
+# Copyright 2016 Joyent, Inc.
 #
 
 #
-# Rsync metric-agent
+# Rsync cmon-agent
 #
 
 set -o errexit
 
 TOP=$(cd $(dirname $0)/../; pwd)
 NODE=root@$1
-METRIC_AGENT_DIR=/opt/smartdc/agents/lib/node_modules/metric-agent
+AGENT_DIR=/opt/smartdc/agents/lib/node_modules/cmon-agent
 
 extraOpts=
 if [[ $(uname -s) != "SunOS" ]]; then
@@ -25,7 +25,7 @@ if [[ $(uname -s) != "SunOS" ]]; then
 fi
 
 rsync -av ${TOP}/ \
-    $NODE:${METRIC_AGENT_DIR} \
+    $NODE:${AGENT_DIR}/ \
     $extraOpts \
     --exclude .git/ \
     --exclude /deps/ \
@@ -33,9 +33,10 @@ rsync -av ${TOP}/ \
     --exclude /tools/ \
     --exclude /tmp/
 
-state=$(ssh ${NODE} svcs -H -o state metric-agent)
+state=$(ssh ${NODE} svcs -H -o state cmon-agent)
 if [[ "$state" == "maintenance" ]]; then
-    ssh ${NODE} svcadm clear metric-agent
+    ssh ${NODE} svcadm clear cmon-agent
 else
-    ssh ${NODE} svcadm restart metric-agent
+    ssh ${NODE} svcadm restart cmon-agent
 fi
+ssh ${NODE} svcadm restart config-agent

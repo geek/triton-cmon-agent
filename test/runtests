@@ -10,7 +10,7 @@
 #
 
 #
-# Run the metric-agent tests.
+# Run the cmon-agent tests.
 # Run `./runtests -h` for usage info.
 #
 
@@ -89,7 +89,7 @@ if [[ -n "$opt_test_pattern" ]]; then
     echo "# Running filtered set of test files: $test_files"
 fi
 /usr/node/bin/node ./node_modules/tape/bin/tape $test_files --reporter=tap \
-    | tee $OUTPUT_DIR/metric-agent.tap
+    | tee $OUTPUT_DIR/cmon-agent.tap
 
 
 

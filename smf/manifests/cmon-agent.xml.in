@@ -61,7 +61,7 @@
 
     <template>
       <common_name>
-        <loctext xml:lang="C">Triton Metric Agent</loctext>
+        <loctext xml:lang="C">Triton Container Monitor Agent</loctext>
       </common_name>
     </template>
 
