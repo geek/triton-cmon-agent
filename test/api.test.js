@@ -8,7 +8,6 @@
  * Copyright (c) 2016, Joyent, Inc.
  */
 
-/* Test the Metric Agent endpoints */
 'use strict';
 
 var test = require('tape').test;
