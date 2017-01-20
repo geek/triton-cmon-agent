@@ -83,13 +83,13 @@ function main() {
             app.start(next);
         }
 
-        // TODO: want setupSignalHandlers a la imgapi/main.js?
     ]}, function (err) {
         if (err) {
             log.error(err, 'error starting up');
-            process.exit(2);
-        }
-        log.info('startup complete');
+            process.exitCode = 2;
+        } else {
+            log.info('startup complete');
+	}
     });
 
 }
